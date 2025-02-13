@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trejbal clicker</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url("./image.png");
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 15px;
+            background-color: #0000ff;
+            color: white;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        img {
+            display: block;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 24px;
+            margin-top: 10px;
+            color: white;
+        }
+        h1 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>trejbal clicker</h1>
+    <button id="clickerButton">
+        <img src="./image.png" alt="Click me" />
+        javascript
+    </button>
+    <p>Napsaných javascriptů: <span id="clickCount">0</span></p>
+
+    <script>
+        let count = localStorage.getItem("clickerProgress") || 0;
+        document.getElementById("clickCount").textContent = count;
+
+        document.getElementById("clickerButton").addEventListener("click", function() {
+            count++;
+            document.getElementById("clickCount").textContent = count;
+            localStorage.setItem("clickerProgress", count);
+        });
+    </script>
+</body>
+</html>
