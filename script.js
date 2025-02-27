@@ -1,4 +1,4 @@
-let count = 0;
+        let count = 0;
         let rebirths = 0;
         let clickValue = 1;
         let autoClickers = 0;
