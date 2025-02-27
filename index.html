@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trejbal clicker</title>
+    <title>Trejbal Clicker</title>
     <style>
         body {
             display: flex;
@@ -11,12 +12,13 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-image: url("./image (2).png");
+            background-color: #121212;
             font-family: Arial, sans-serif;
+            color: white;
         }
         button {
             padding: 15px;
-            background-color: #0000ff;
+            background-color: #00bfff;
             color: white;
             font-size: 20px;
             border: none;
@@ -25,39 +27,159 @@
             margin-top: 10px;
         }
         button:hover {
-            background-color: darkblue;
+            background-color: #0080ff;
         }
         img {
             display: block;
             margin-bottom: 10px;
         }
-        p {
-            font-size: 24px;
-            margin-top: 10px;
-            color: white;
-        }
-        h1 {
-            color: white;
+        .upgrades, .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #222;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>trejbal clicker</h1>
+    <h1>Trejbal Clicker</h1>
     <button id="clickerButton">
         <img src="./image (2).png" alt="Click me" />
-        javascript
+        Javascript
     </button>
     <p>Napsaných javascriptů: <span id="clickCount">0</span></p>
-
+   
+    <div class="stats">
+        <h2>Zakoupené upgrady</h2>
+        <p>Automatické klikání: <span id="autoCount">0</span></p>
+        <p>Více kliků: <span id="multiCount">0</span></p>
+        <p>Hyper boosty: <span id="hyperBoostCount">0</span></p>
+        <p>Super Click: <span id="superClickCount">0</span></p>
+        <p>Auto Frenzy: <span id="autoFrenzyCount">0</span></p>
+    </div>
+   
+    <div class="upgrades">
+        <h2>Upgrady</h2>
+        <button id="autoClicker">Automatické klikání (Cena: <span id="autoPrice">10</span>)</button>
+        <button id="multiClick">Více kliků (Cena: <span id="multiPrice">20</span>)</button>
+        <button id="hyperBoost">Epic sigma click (Cena: <span id="hyperPrice">10000</span>)</button>
+        <button id="superClick">Super ultra Click (Cena: <span id="superClickPrice">20000</span>)</button>
+        <button id="autoFrenzy">Auto sigma Frenzy (Cena: <span id="autoFrenzyPrice">10000</span>)</button>
+    </div>
+   
     <script>
-        let count = localStorage.getItem("clickerProgress") || 0;
+        let count = parseInt(localStorage.getItem("clickerProgress")) || 0;
+let autoClickers = 0;
+let clickValue = 1;
+let hyperBoosts = 0;
+let superClicks = 0;
+let autoFrenzies = 0;
+let autoClickerPrice = 10;
+let multiClickPrice = 20;
+let hyperBoostPrice = 10000;
+let superClickPrice = 20000;
+let autoFrenzyPrice = 10000;
+
+document.getElementById("clickCount").textContent = count;
+
+const clickerButton = document.getElementById("clickerButton");
+let keyHeld = false; // Proměnná pro ochranu proti držení klávesy
+
+clickerButton.addEventListener("click", function() {
+    count += clickValue;
+    document.getElementById("clickCount").textContent = count;
+    localStorage.setItem("clickerProgress", count);
+});
+
+clickerButton.addEventListener("keydown", function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault(); // Zabrání akci tlačítka
+        if (!keyHeld) {
+            keyHeld = true;
+            clickerButton.click();
+        }
+    }
+});
+
+clickerButton.addEventListener("keyup", function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+        keyHeld = false;
+    }
+});
+
         document.getElementById("clickCount").textContent = count;
 
         document.getElementById("clickerButton").addEventListener("click", function() {
-            count++;
+            count += clickValue;
             document.getElementById("clickCount").textContent = count;
             localStorage.setItem("clickerProgress", count);
         });
+
+        document.getElementById("autoClicker").addEventListener("click", function() {
+            if (count >= autoClickerPrice) {
+                count -= autoClickerPrice;
+                autoClickers++;
+                autoClickerPrice = Math.floor(autoClickerPrice * 1.5);
+                document.getElementById("autoPrice").textContent = autoClickerPrice;
+                document.getElementById("autoCount").textContent = autoClickers;
+                document.getElementById("clickCount").textContent = count;
+            }
+        });
+
+        document.getElementById("multiClick").addEventListener("click", function() {
+            if (count >= multiClickPrice) {
+                count -= multiClickPrice;
+                clickValue++;
+                multiClickPrice = Math.floor(multiClickPrice * 1.5);
+                document.getElementById("multiPrice").textContent = multiClickPrice;
+                document.getElementById("multiCount").textContent = clickValue - 1;
+                document.getElementById("clickCount").textContent = count;
+            }
+        });
+       
+        document.getElementById("hyperBoost").addEventListener("click", function() {
+            if (count >= hyperBoostPrice) {
+                count -= hyperBoostPrice;
+                clickValue *= 3;
+                hyperBoosts++;
+                hyperBoostPrice = Math.floor(hyperBoostPrice * 2);
+                document.getElementById("hyperPrice").textContent = hyperBoostPrice;
+                document.getElementById("hyperBoostCount").textContent = hyperBoosts;
+                document.getElementById("clickCount").textContent = count;
+            }
+        });
+
+        document.getElementById("superClick").addEventListener("click", function() {
+            if (count >= superClickPrice) {
+                count -= superClickPrice;
+                clickValue *= 5;
+                superClicks++;
+                superClickPrice = Math.floor(superClickPrice * 5);
+                document.getElementById("superClickPrice").textContent = superClickPrice;
+                document.getElementById("superClickCount").textContent = superClicks;
+                document.getElementById("clickCount").textContent = count;
+            }
+        });
+
+        document.getElementById("autoFrenzy").addEventListener("click", function() {
+            if (count >= autoFrenzyPrice) {
+                count -= autoFrenzyPrice;
+                autoFrenzies++;
+                autoClickers += 10;
+                autoFrenzyPrice = Math.floor(autoFrenzyPrice * 3);
+                document.getElementById("autoFrenzyPrice").textContent = autoFrenzyPrice;
+                document.getElementById("autoFrenzyCount").textContent = autoFrenzies;
+                document.getElementById("clickCount").textContent = count;
+            }
+        });
+
+        setInterval(function() {
+            count += autoClickers;
+            document.getElementById("clickCount").textContent = count;
+            localStorage.setItem("clickerProgress", count);
+        }, 1000);
     </script>
 </body>
 </html>
+
+
