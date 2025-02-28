@@ -159,14 +159,14 @@
     if (count >= rebirthPrice) {
         count = 0;
         rebirths += 1;
-        totalRebirths += 1; // Přičteme totalRebirths
+        totalRebirths += 1; 
         rebirthBoost += 0.2;
         rebirthPrice *= 2;
 
         document.getElementById("rebirthCount").textContent = rebirths;
         document.getElementById("rebirthBoost").textContent = rebirthBoost.toFixed(1);
         document.getElementById("rebirthPrice").textContent = rebirthPrice;
-        document.getElementById("totalRebirths").textContent = totalRebirths; // Aktualizujeme zobrazení
+        document.getElementById("totalRebirths").textContent = totalRebirths; 
 
         updateRank();
         saveProgress();
@@ -188,19 +188,18 @@
         document.addEventListener("keyup", function(event) {
             delete keysPressed[event.code];
         });
-        // Ranky podle počtu rebirthů
+
 const ranks = [
-    "Herrmann",        // 0 rebirthů
-    "No way, jsi lepší jak Herrmann",            // 1 rebirth
-    "skibidi sigma",         // 5 rebirthů
-    "GrandMaster Baiter",            // 10 rebirthů
-    "Ultimátní Trejbal licker",             // 25 rebirthů
-    "YES KING",           // 50 rebirthů
-    "Trejbalův oblíbený student",    // 100 rebirthů
-    "Trejbal" // 200+ rebirthů
+    "Herrmann", 
+    "No way, jsi lepší jak Herrmann",
+    "skibidi sigma",
+    "GrandMaster Baiter",
+    "Ultimátní Trejbal licker",
+    "YES KING",
+    "Trejbalův oblíbený student", 
+    "Trejbal" 
 ];
 
-// Funkce na získání ranku podle rebirthů
 function getRank(rebirths) {
     if (rebirths >= 20) return ranks[7];
     if (rebirths >= 10) return ranks[6];
@@ -212,7 +211,6 @@ function getRank(rebirths) {
     return ranks[0];
 }
 
-// Aktualizace ranku v UI
 function updateRank() {
     document.getElementById("rank").textContent = getRank(rebirths);
 }
@@ -260,7 +258,7 @@ function loadProgress() {
         autohyperClickerPrice = savedData.autohyperClickerPrice || 20000;
         mangoClickPrice = savedData.mangoClickPrice || 10000000;
         automangoClickerPrice = savedData.automangoClickerPrice || 1200000;
-        rebirthUpgradePrice = savedData.rebirthUpgradePrice || 1; // Přidáno načtení ceny upgradu!
+        rebirthUpgradePrice = savedData.rebirthUpgradePrice || 1; 
 
         document.getElementById("clickCount").textContent = count;
         document.getElementById("rebirthCount").textContent = rebirths;
