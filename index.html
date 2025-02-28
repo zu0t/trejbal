@@ -7,29 +7,34 @@
     <link href="./style.css" rel="stylesheet">
 </head>
 <body>
+    
     <div class="container">
         <h1>Trejbal Clicker</h1>
         <button id="clickerButton"><img src="./unnamed.png" alt="">CLICK</button>
         <p>Napsaných javascriptů: <span id="clickCount">0</span>$</p>
-        <p>Vyhozeno z maturit: <span id="rebirthCount">0</span></p>
+        <p>Vyhozeno z maturit: <span id="rebirthCount">0</span>∑</p>
+        <p>Rank: <b><span id="rank">Herrmann</span></b></p>
         <div class="image">
             <a href="https://www.youtube.com/watch?v=gDLobwJ-VYs"><img src="./martin-ezgif.com-resize.png" alt="Advertisement"></a>
         </div>
+        <div class="image2">
+            <a href="https://www.youtube.com/watch?v=B13JypT3WD4"><img src="./herrmannnew-ezgif.com-resize.png" alt="Advertisement"></a>
+        </div>
         <div class="stats">
             <h2>Upgrady</h2>
-            <button id="autoClicker">Auto Click  <span id="autoPrice">20</span>$</button>
-            <button id="multiClick">Plus Click <span id="multiPrice">10</span>$</button>
-            <button id="hyperClick">Sigma Click <span id="hyperPrice">5000</span>$</button>
-            <button id="autohyperClicker">Sigma Auto Click <span id="autohyperPrice">10000</span>$</button>
-            <button id="mangoClick">Mango Click <span id="mangoPrice">10000000</span>$</button>
-            <button id="automangoClicker">Mango Auto Click <span id="automangoPrice">12000000</span>$</button>
+            <button id="autoClicker">Auto Click  <span id="autoPrice">20</span>$ (+1/s)</button>
+            <button id="multiClick">Plus Click <span id="multiPrice">10</span>$ (+0,5)</button>
+            <button id="hyperClick">Sigma Click <span id="hyperPrice">5000</span>$ (+20)</button>
+            <button id="autohyperClicker">Sigma Auto Click <span id="autohyperPrice">10000</span>$ (+50/s)</button>
+            <button id="mangoClick">Mango Click <span id="mangoPrice">10000000</span>$ (+5000)</button>
+            <button id="automangoClicker">Mango Auto Click <span id="automangoPrice">12000000</span>$ (+5000/s)</button>
             <h2>Vyhození z maturit</h2>
-            <button id="rebirth">Vyhodit z maturity <span id="rebirthPrice">10000</span>$</button> 
-            <p>Rebirth boost: x<span id="rebirthBoost">1</span></p>
+            <button id="rebirth">Vyhodit z maturity <span id="rebirthPrice">10000</span>$ (x1,1)</button> 
+            <p>Vyhození z maturity boost: x<span id="rebirthBoost">1</span></p>
 
         <div class="rebirth-shop">
             <h2>Vyhození z maturity Shop</h2>
-            <button id="rebirthUpgrade">Ultra Boost <span id="rebirthUpgradePrice">1</span> Vyhození z maturity</button>
+            <button id="rebirthUpgrade">Ultra Boost <span id="rebirthUpgradePrice">1</span>∑ (x2)</button>
         </div>
     </div>
     <script>
@@ -50,6 +55,7 @@
         let autohyperClickerPrice = 20000;
         let mangoClickPrice = 10000000;
         let automangoClickerPrice = 1200000;
+        let totalRebirths = 0;
         let keysPressed = {};
         
         document.getElementById("clickCount").textContent = count;
@@ -110,19 +116,33 @@
             }
         });
         document.getElementById("rebirth").addEventListener("click", function() {
-            if (count >= rebirthPrice) {
-                count = 0;
-                autoClickers = 0;
-                clickValue = 1;
-                rebirths++;
-                rebirthBoost *= 1.1;
+    if (count >= rebirthPrice) {
+        count = 0;
+        autoClickers = 0;
+        clickValue = 1;
+        rebirths++;
+        rebirthBoost *= 1.1;
                 rebirthPrice *= 3.2;
-                document.getElementById("rebirthCount").textContent = rebirths;
-                document.getElementById("rebirthBoost").textContent = rebirthBoost;
-                document.getElementById("rebirthPrice").textContent = rebirthPrice;
-                document.getElementById("clickCount").textContent = count;
-            }
-        });
+                autoClickerPrice = 20;
+        multiClickPrice = 10;
+        hyperClickPrice = 5000;
+        autohyperClickerPrice = 10000;
+        mangoClickPrice = 10000000;
+        automangoClickerPrice = 12000000;
+        document.getElementById("autoPrice").textContent = autoClickerPrice;
+        document.getElementById("multiPrice").textContent = multiClickPrice;
+        document.getElementById("rebirthPrice").textContent = rebirthPrice;
+        document.getElementById("rebirthUpgradePrice").textContent = rebirthUpgradePrice;
+        document.getElementById("hyperPrice").textContent = hyperClickPrice;
+        document.getElementById("autohyperPrice").textContent = autohyperClickerPrice;
+        document.getElementById("mangoPrice").textContent = mangoClickPrice;
+        document.getElementById("automangoPrice").textContent = automangoClickerPrice;
+
+        document.getElementById("rebirthCount").textContent = rebirths;
+        document.getElementById("rebirthBoost").textContent = rebirthBoost.toFixed(1);
+        document.getElementById("clickCount").textContent = count;
+    }
+});
 
         document.getElementById("rebirthUpgrade").addEventListener("click", function() {
             if (rebirths >= rebirthUpgradePrice) {
@@ -134,6 +154,24 @@
                 document.getElementById("rebirthUpgradePrice").textContent = rebirthUpgradePrice;
             }
         });
+
+        function rebirth() {
+    if (count >= rebirthPrice) {
+        count = 0;
+        rebirths += 1;
+        totalRebirths += 1; // Přičteme totalRebirths
+        rebirthBoost += 0.2;
+        rebirthPrice *= 2;
+
+        document.getElementById("rebirthCount").textContent = rebirths;
+        document.getElementById("rebirthBoost").textContent = rebirthBoost.toFixed(1);
+        document.getElementById("rebirthPrice").textContent = rebirthPrice;
+        document.getElementById("totalRebirths").textContent = totalRebirths; // Aktualizujeme zobrazení
+
+        updateRank();
+        saveProgress();
+    }
+}
 
         setInterval(function() {
             count += autoClickers * rebirthBoost;
@@ -150,6 +188,130 @@
         document.addEventListener("keyup", function(event) {
             delete keysPressed[event.code];
         });
+        // Ranky podle počtu rebirthů
+const ranks = [
+    "Herrmann",        // 0 rebirthů
+    "No way, jsi lepší jak Herrmann",            // 1 rebirth
+    "skibidi sigma",         // 5 rebirthů
+    "GrandMaster Baiter",            // 10 rebirthů
+    "Ultimátní Trejbal licker",             // 25 rebirthů
+    "YES KING",           // 50 rebirthů
+    "Trejbalův oblíbený student",    // 100 rebirthů
+    "Trejbal" // 200+ rebirthů
+];
+
+// Funkce na získání ranku podle rebirthů
+function getRank(rebirths) {
+    if (rebirths >= 20) return ranks[7];
+    if (rebirths >= 10) return ranks[6];
+    if (rebirths >= 8) return ranks[5];
+    if (rebirths >= 5) return ranks[4];
+    if (rebirths >= 3) return ranks[3];
+    if (rebirths >= 2) return ranks[2];
+    if (rebirths >= 1) return ranks[1];
+    return ranks[0];
+}
+
+// Aktualizace ranku v UI
+function updateRank() {
+    document.getElementById("rank").textContent = getRank(rebirths);
+}
+
+function saveProgress() {
+    localStorage.setItem("clickerProgress", JSON.stringify({
+        count: count,
+        rebirths: rebirths,
+        rebirthBoost: rebirthBoost,
+        rebirthPrice: rebirthPrice,
+        totalRebirths: totalRebirths,
+        rebirthUpgradePrice: rebirthUpgradePrice,
+        clickValue: clickValue,
+        autoClickers: autoClickers,
+        hyperClick: hyperClick,
+        autohyperClickers: autohyperClickers,
+        mangoClick: mangoClick,
+        automangoClicker: automangoClicker,
+        autoClickerPrice: autoClickerPrice,
+        multiClickPrice: multiClickPrice,
+        hyperClickPrice: hyperClickPrice,
+        autohyperClickerPrice: autohyperClickerPrice,
+        mangoClickPrice: mangoClickPrice,
+        automangoClickerPrice: automangoClickerPrice
+    }));
+}
+
+function loadProgress() {
+    const savedData = JSON.parse(localStorage.getItem("clickerProgress"));
+    if (savedData) {
+        count = savedData.count || 0;
+        rebirths = savedData.rebirths || 0;
+        rebirthBoost = savedData.rebirthBoost || 1;
+        rebirthPrice = savedData.rebirthPrice || 1;
+        totalRebirths = savedData.totalRebirths || 0;
+        clickValue = savedData.clickValue || 1;
+        autoClickers = savedData.autoClickers || 0;
+        hyperClick = savedData.hyperClick || 0;
+        autohyperClickers = savedData.autohyperClickers || 0;
+        mangoClick = savedData.mangoClick || 0;
+        automangoClicker = savedData.automangoClicker || 0;
+        autoClickerPrice = savedData.autoClickerPrice || 20;
+        multiClickPrice = savedData.multiClickPrice || 10;
+        hyperClickPrice = savedData.hyperClickPrice || 5000;
+        autohyperClickerPrice = savedData.autohyperClickerPrice || 20000;
+        mangoClickPrice = savedData.mangoClickPrice || 10000000;
+        automangoClickerPrice = savedData.automangoClickerPrice || 1200000;
+        rebirthUpgradePrice = savedData.rebirthUpgradePrice || 1; // Přidáno načtení ceny upgradu!
+
+        document.getElementById("clickCount").textContent = count;
+        document.getElementById("rebirthCount").textContent = rebirths;
+        document.getElementById("rebirthBoost").textContent = rebirthBoost.toFixed(1);
+        document.getElementById("rebirthPrice").textContent = rebirthPrice;
+        document.getElementById("autoPrice").textContent = autoClickerPrice;
+        document.getElementById("multiPrice").textContent = multiClickPrice;
+        document.getElementById("hyperPrice").textContent = hyperClickPrice;
+        document.getElementById("autohyperPrice").textContent = autohyperClickerPrice;
+        document.getElementById("mangoPrice").textContent = mangoClickPrice;
+        document.getElementById("automangoPrice").textContent = automangoClickerPrice;
+        updateRank();
+    }
+}
+
+document.getElementById("rebirth").addEventListener("click", function() {
+    if (count >= rebirthPrice) {
+        count = 0;
+        autoClickers = 0;
+        clickValue = 1;
+        rebirths++;
+        rebirthBoost *= 1.1;
+        rebirthPrice = Math.floor(rebirthPrice * 3.2);
+
+        document.getElementById("clickCount").textContent = count;
+        document.getElementById("rebirthCount").textContent = rebirths;
+        document.getElementById("rebirthBoost").textContent = rebirthBoost.toFixed(1);
+        document.getElementById("rebirthPrice").textContent = rebirthPrice;
+
+        updateRank();
+        saveProgress();
+    }
+});
+setInterval(saveProgress, 5000);
+window.addEventListener("beforeunload", saveProgress);
+
+window.addEventListener("load", loadProgress);
+
+document.getElementById("clickerButton").addEventListener("click", function() {
+            let img = document.createElement("img");
+            img.src = "./unnamed.png";
+            img.classList.add("falling-image");
+            img.style.left = Math.random() * window.innerWidth + "px";
+            img.style.position = "absolute";
+            img.style.top = "-50px";
+
+            document.body.appendChild(img);
+
+            setTimeout(() => img.remove(), 3000);
+        });
+
     </script>
 </body>
 </html>
