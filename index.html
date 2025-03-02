@@ -318,7 +318,8 @@ if (localStorage.getItem("resetGame") === "true") {
     localStorage.removeItem("resetGame");
     alert("TrejbalAC detekoval velice sus aktivitu. Necheatuj 😡😡😡");
 }
-// epic blockation
+
+// Epic blockation
 (function() {
     const detectDevTools = function() {
         const threshold = 100;
@@ -329,32 +330,36 @@ if (localStorage.getItem("resetGame") === "true") {
             document.body.innerHTML = "<h1 style='text-align: center; font-size: 50px;'>nuh uh</h1>";
         }
     };
-    
     setInterval(detectDevTools, 1000);
 })();
 
-// epic detection
+// Epic detection 
 let lastCount = 0;
 let lastCheckTime = Date.now();
+
 setInterval(() => {
     let now = Date.now();
     let timeDiff = (now - lastCheckTime) / 1000;
     lastCheckTime = now;
 
-    let upgradeFactor = (rebirthBoost * clickValue*3 + autoClickers*3 * rebirthBoost) * 10; 
-    let maxPossibleGain = (upgradeFactor + 5000 * rebirths) * timeDiff; 
+    let manualClickPower = clickValue * rebirthBoost * 50; 
+    let autoClickPower = autoClickers * rebirthBoost * 10; 
+    let rebirthBonus = 5000 * rebirths; 
+    let hyperClickBonus = hyperClick * 20; 
+    let mangoClickBonus = mangoClick * 5000; 
 
-    if (count - lastCount > maxPossibleGain * 4) {
+    let maxPossibleGain = (manualClickPower + autoClickPower + rebirthBonus + hyperClickBonus + mangoClickBonus) * timeDiff * 10;
+
+    if (count - lastCount > maxPossibleGain) { 
         setTimeout(() => {
-            let confirmation = confirm("Podvod detekován! Tvůj progress bude resetován.");
-            if (confirmation) {
-                localStorage.setItem("resetGame", "true"); 
-                location.reload();
-            }
+            alert("Podvod detekován! Tvůj progress bude resetován.");
+            localStorage.setItem("resetGame", "true"); 
+            location.reload(); 
         }, 100);
     }
     lastCount = count;
 }, 3000);
+
     </script>
 </body>
 </html>
