@@ -335,14 +335,20 @@ if (localStorage.getItem("resetGame") === "true") {
 
 // epic detection
 let lastCount = 0;
+let lastCheckTime = Date.now();
 setInterval(() => {
-    let maxPossibleGain = clickValue *6* rebirthBoost * 5 + autoClickers * rebirthBoost * 2;
+    let now = Date.now();
+    let timeDiff = (now - lastCheckTime) / 1000;
+    lastCheckTime = now;
 
-    if (count - lastCount > maxPossibleGain * 3) { 
+    let upgradeFactor = (rebirthBoost * clickValue*3 + autoClickers*3 * rebirthBoost) * 10; 
+    let maxPossibleGain = (upgradeFactor + 5000 * rebirths) * timeDiff; 
+
+    if (count - lastCount > maxPossibleGain * 4) {
         setTimeout(() => {
-            let confirmation = confirm("TrejbalAC detekoval velice sus aktivitu. Necheatuj 😡😡😡");
+            let confirmation = confirm("Podvod detekován! Tvůj progress bude resetován.");
             if (confirmation) {
-                localStorage.setItem("resetGame", "true");
+                localStorage.setItem("resetGame", "true"); 
                 location.reload();
             }
         }, 100);
