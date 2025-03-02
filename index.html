@@ -159,14 +159,14 @@
     if (count >= rebirthPrice) {
         count = 0;
         rebirths += 1;
-        totalRebirths += 1; 
+        totalRebirths += 1; // Přičteme totalRebirths
         rebirthBoost += 0.2;
         rebirthPrice *= 2;
 
         document.getElementById("rebirthCount").textContent = rebirths;
         document.getElementById("rebirthBoost").textContent = rebirthBoost.toFixed(1);
         document.getElementById("rebirthPrice").textContent = rebirthPrice;
-        document.getElementById("totalRebirths").textContent = totalRebirths; 
+        document.getElementById("totalRebirths").textContent = totalRebirths; // Aktualizujeme zobrazení
 
         updateRank();
         saveProgress();
@@ -188,18 +188,19 @@
         document.addEventListener("keyup", function(event) {
             delete keysPressed[event.code];
         });
-
+        // Ranky podle počtu rebirthů
 const ranks = [
-    "Herrmann", 
-    "No way, jsi lepší jak Herrmann",
-    "skibidi sigma",
-    "GrandMaster Baiter",
-    "Ultimátní Trejbal licker",
-    "YES KING",
-    "Trejbalův oblíbený student", 
-    "Trejbal" 
+    "Herrmann",        // 0 rebirthů
+    "No way, jsi lepší jak Herrmann",            // 1 rebirth
+    "skibidi sigma",         // 5 rebirthů
+    "GrandMaster Baiter",            // 10 rebirthů
+    "Ultimátní Trejbal licker",             // 25 rebirthů
+    "YES KING",           // 50 rebirthů
+    "Trejbalův oblíbený student",    // 100 rebirthů
+    "Trejbal" // 200+ rebirthů
 ];
 
+// Funkce na získání ranku podle rebirthů
 function getRank(rebirths) {
     if (rebirths >= 20) return ranks[7];
     if (rebirths >= 10) return ranks[6];
@@ -211,6 +212,7 @@ function getRank(rebirths) {
     return ranks[0];
 }
 
+// Aktualizace ranku v UI
 function updateRank() {
     document.getElementById("rank").textContent = getRank(rebirths);
 }
@@ -258,7 +260,7 @@ function loadProgress() {
         autohyperClickerPrice = savedData.autohyperClickerPrice || 20000;
         mangoClickPrice = savedData.mangoClickPrice || 10000000;
         automangoClickerPrice = savedData.automangoClickerPrice || 1200000;
-        rebirthUpgradePrice = savedData.rebirthUpgradePrice || 1; 
+        rebirthUpgradePrice = savedData.rebirthUpgradePrice || 1; // Přidáno načtení ceny upgradu!
 
         document.getElementById("clickCount").textContent = count;
         document.getElementById("rebirthCount").textContent = rebirths;
@@ -310,6 +312,43 @@ document.getElementById("clickerButton").addEventListener("click", function() {
             setTimeout(() => img.remove(), 3000);
         });
 
+// epic deletion
+if (localStorage.getItem("resetGame") === "true") {
+    localStorage.clear();
+    localStorage.removeItem("resetGame");
+    alert("TrejbalAC detekoval velice sus aktivitu. Necheatuj 😡😡😡");
+}
+// epic blockation
+(function() {
+    const detectDevTools = function() {
+        const threshold = 100;
+        const start = performance.now();
+        debugger;
+        const end = performance.now();
+        if (end - start > threshold) {
+            document.body.innerHTML = "<h1 style='text-align: center; font-size: 50px;'>nuh uh</h1>";
+        }
+    };
+    
+    setInterval(detectDevTools, 1000);
+})();
+
+// epic detection
+let lastCount = 0;
+setInterval(() => {
+    let maxPossibleGain = clickValue *6* rebirthBoost * 5 + autoClickers * rebirthBoost * 2;
+
+    if (count - lastCount > maxPossibleGain * 3) { 
+        setTimeout(() => {
+            let confirmation = confirm("TrejbalAC detekoval velice sus aktivitu. Necheatuj 😡😡😡");
+            if (confirmation) {
+                localStorage.setItem("resetGame", "true");
+                location.reload();
+            }
+        }, 100);
+    }
+    lastCount = count;
+}, 3000);
     </script>
 </body>
 </html>
