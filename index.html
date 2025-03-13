@@ -350,15 +350,6 @@ setInterval(() => {
 
     let maxPossibleGain = (manualClickPower + autoClickPower + rebirthBonus + hyperClickBonus + mangoClickBonus) * timeDiff * 10;
 
-    if (rebirths - lastRebirths > 1.1) { 
-        setTimeout(() => {
-            alert("Podvod s rebirthy detekován! Tvůj progress bude resetován.");
-            localStorage.setItem("resetGame", "true"); 
-            location.reload(); 
-        }, 100);
-    }
-    lastRebirths = rebirths; 
-
     if (count - lastCount > maxPossibleGain) { 
         setTimeout(() => {
             alert("Podvod detekován! Tvůj progress bude resetován.");
