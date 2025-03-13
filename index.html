@@ -312,12 +312,13 @@ document.getElementById("clickerButton").addEventListener("click", function() {
             setTimeout(() => img.remove(), 3000);
         });
 
-if (localStorage.getItem("\uD83D\uDD12") === "true") {
+if (localStorage.getItem("resetGame") === "true") {
     localStorage.clear();
-    localStorage.removeItem("\uD83D\uDD12");
-    alert("\uD835\uDC13\uD835\uDC28\uD835\uDC2F\uD835\uDC2C\uD835\uDC22\uD835\uDC2D\uD835\uDC28\uD835\uDC2F\uD835\uDC1A\uD835\uDC2D\uD835\uDC28\uD835\uDC2C \uD835\uDC13\uD835\uDC2C\uD835\uDC2B\uD835\uDC28\uD835\uDC22\uD835\uDC1E\uD835\uDC1E \uD835\uDC1A \uD835\uDC2E\uD835\uDC1E\uD835\uDC22\uD835\uDC26 \uD835\uDC14\uD835\uDC2C\uD835\uDC2D\uD835\uDC22\uD835\uDC21\uD835\uDC2C\uD835\uDC28\uD835\uDC2F\uD835\uDC1A!");
+    localStorage.removeItem("resetGame");
+    alert("TrejbalAC detekoval velice sus aktivitu. Necheatuj 😡😡😡");
 }
 
+// Epic blockation
 (function() {
     const detectDevTools = function() {
         const threshold = 100;
@@ -331,42 +332,42 @@ if (localStorage.getItem("\uD83D\uDD12") === "true") {
     setInterval(detectDevTools, 1000);
 })();
 
-let 🎷 = 0; 
-let 🎭 = Date.now(); 
-let 🎶 = rebirths; 
+// Epic detection 
+let lastCount = 0;
+let lastCheckTime = Date.now();
+let lastRebirths = rebirths; 
 
 setInterval(() => {
-    let 🕵️ = Date.now();
-    let 🔍 = (🕵️ - 🎭) / 1000;
-    🎭 = 🕵️;
+    let now = Date.now();
+    let timeDiff = (now - lastCheckTime) / 1000;
+    lastCheckTime = now;
 
-    let 🎰 = clickValue * rebirthBoost * 50; 
-    let 🎯 = autoClickers * rebirthBoost * 10; 
-    let 🎲 = 5000 * rebirths; 
-    let 🎳 = hyperClick * 20; 
-    let 🎵 = mangoClick * 5000; 
+    let manualClickPower = clickValue * rebirthBoost * 50; 
+    let autoClickPower = autoClickers * rebirthBoost * 10; 
+    let rebirthBonus = 5000 * rebirths; 
+    let hyperClickBonus = hyperClick * 20; 
+    let mangoClickBonus = mangoClick * 5000; 
 
-    let 🎼 = (🎰 + 🎯 + 🎲 + 🎳 + 🎵) * 🔍 * 10;
+    let maxPossibleGain = (manualClickPower + autoClickPower + rebirthBonus + hyperClickBonus + mangoClickBonus) * timeDiff * 10;
 
-    if (rebirths - 🎶 > 1.1) { 
+    if (rebirths - lastRebirths > 1.1) { 
         setTimeout(() => {
-            alert("\uD835\uDC13\uD835\uDC2C\uD835\uDC2B\uD835\uDC28\uD835\uDC22\uD835\uDC1E\uD835\uDC1E\uD835\uDC1A \uD835\uDC29\uD835\uDC2C\uD835\uDC1A \uD835\uDC14\uD835\uDC2C\uD835\uDC2D\uD835\uDC22\uD835\uDC21\uD835\uDC2C\uD835\uDC28\uD835\uDC2F\uD835\uDC1A!");
-            localStorage.setItem("\uD83D\uDD12", "true"); 
+            alert("Podvod s rebirthy detekován! Tvůj progress bude resetován.");
+            localStorage.setItem("resetGame", "true"); 
             location.reload(); 
         }, 100);
     }
-    🎶 = rebirths; 
+    lastRebirths = rebirths; 
 
-    if (count - 🎷 > 🎼) { 
+    if (count - lastCount > maxPossibleGain) { 
         setTimeout(() => {
-            alert("\uD835\uDC14\uD835\uDC2C\uD835\uDC2D\uD835\uDC22\uD835\uDC21\uD835\uDC2C\uD835\uDC28\uD835\uDC2F\uD835\uDC1A \uD835\uDC28\uD835\uDC2F\uD835\uDC1A \uD835\uDC29\uD835\uDC2C\uD835\uDC1A \uD835\uDC14\uD835\uDC2C\uD835\uDC2D\uD835\uDC22\uD835\uDC21\uD835\uDC2C\uD835\uDC28\uD835\uDC2F\uD835\uDC1A!");
-            localStorage.setItem("\uD83D\uDD12", "true"); 
+            alert("Podvod detekován! Tvůj progress bude resetován.");
+            localStorage.setItem("resetGame", "true"); 
             location.reload(); 
         }, 100);
     }
-    🎷 = count;
+    lastCount = count;
 }, 3000);
-
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    (function(){function 🛑(🚷){document.body.innerHTML="<h1 style='text-align: center; font-size: 50px;'>"+🚷+"</h1>";localStorage.setItem("\uD83D\uDD12","true");setTimeout(()=>location.reload(),3000);}function 🕵️‍♂️(){let 🕶️=["\u0263\u0252\u0064\u0252","\u01B6\u027F\u0268\u022E","\u029E\u0263\u027F\u026F"],🦠=atob("dHJlamJhbA==,Y2xpY2tlcg==,dHJlamJhbF9jbGlja2VyX2hhY2s=,dHJlamJhbCBjbGlja2VyIGhhY2s=,dHJlYmFsIGhhY2s=").split(",");for(let 🎭=0;🎭<navigator.plugins.length;🎭++){let 🔍=navigator.plugins[🎭].name.toLowerCase();if(🦠.some(🔑=>🔍.includes(🔑))){🛑("\uD83D\uDEAB");}}}function 🔎(){const 🔒=console.log;console.log=function(...❌){if(❌.some(📌=>typeof 📌==="string"&&new RegExp(atob("dHJlamJhbHxjbGlja2VyfHRyZWpiYWxfY2xpY2tlcl9oYWNrfHRyZWpiYWwgY2xpY2tlciBoYWNrfHRyZWJhbCBoYWNr"),"i").test(📌))){🛑("\uD83D\uDEAB");}🔒.apply(console,❌);};}function 🧩(){setInterval(()=>{if(window["\uD835\uDD30\uD835\uDD2F\uD835\uDD2D\uD835\uDD2E\uD835\uDD30\uD835\uDD2D"]||document.getElementById("\uD83D\uDEAB\uD83D\uDEAB\uD83D\uDEAB")){🛑("\uD83D\uDEAB");}},1000);}function 🎲(🃏){return decodeURIComponent(atob(🃏).split("").reverse().join(""));}let ⛓️="KCl9KCJoYWNrZWQtY29kZSIsIltleU9yX3ZhbHVlXSI9PSJwb3Jub1BsdXMiJiYod2luZG93LltleU9yX3ZhbHVlXT0iY29ycmVjdF9xdWVzdGlvbnMiKSk=";eval(🎲(⛓️));🕵️‍♂️();🔎();🧩();})(); 
     </script>
 </body>
