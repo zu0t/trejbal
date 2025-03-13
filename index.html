@@ -24,8 +24,10 @@
             <h2>Upgrady</h2>
             <button id="autoClicker">Auto Click  <span id="autoPrice">20</span>$ (+1/s)</button>
             <button id="multiClick">Plus Click <span id="multiPrice">10</span>$ (+0,5)</button>
+            <button id="premiumClick">Premium Click <span id="premiumPrice">100</span>$ (+3)</button>
             <button id="hyperClick">Sigma Click <span id="hyperPrice">5000</span>$ (+20)</button>
             <button id="autohyperClicker">Sigma Auto Click <span id="autohyperPrice">10000</span>$ (+50/s)</button>
+            <button id="hyperClick">Herrmann Click <span id="herrmannPrice">100000</span>$ (+500)</button>
             <button id="mangoClick">Mango Click <span id="mangoPrice">10000000</span>$ (+5000)</button>
             <button id="automangoClicker">Mango Auto Click <span id="automangoPrice">12000000</span>$ (+5000/s)</button>
             <h2>Vyhození z maturit</h2>
@@ -37,7 +39,7 @@
             <button id="rebirthUpgrade">Ultra Boost <span id="rebirthUpgradePrice">1</span>∑ (x2)</button>
         </div>
     </div>
-        Powered by TrejbyAC
+    Powered by TrejbyAC
     <script>
         let count = 0;
         let rebirths = 0;
@@ -52,6 +54,8 @@
         let multiClickPrice = 10;
         let rebirthPrice = 10000;
         let rebirthUpgradePrice = 1;
+        let premiumPrice = 100;
+        let herrmannPrice = 100000;
         let hyperClickPrice = 5000;
         let autohyperClickerPrice = 20000;
         let mangoClickPrice = 10000000;
@@ -92,6 +96,26 @@
                 document.getElementById("hyperPrice").textContent = hyperClickPrice;
             }
         });
+// Opravený Premium Click
+document.getElementById("premiumClick").addEventListener("click", function() {
+    if (count >= premiumPrice) {
+        count -= premiumPrice;
+        clickValue += 3;
+        premiumPrice = Math.floor(premiumPrice * 1.7);
+        document.getElementById("premiumPrice").textContent = premiumPrice;
+    }
+});
+
+// Opravený Herrmann Click
+document.getElementById("herrmannClick").addEventListener("click", function() {
+    if (count >= herrmannPrice) {
+        count -= herrmannPrice;
+        clickValue += 500;
+        herrmannPrice = Math.floor(herrmannPrice * 3);
+        document.getElementById("herrmannPrice").textContent = herrmannPrice;
+    }
+});
+
         document.getElementById("autohyperClicker").addEventListener("click", function() {
             if (count >= autohyperClickerPrice) {
                 count -= autohyperClickerPrice;
@@ -126,6 +150,7 @@
                 rebirthPrice *= 3.2;
                 autoClickerPrice = 20;
         multiClickPrice = 10;
+        premiumClickPrice = 100;
         hyperClickPrice = 5000;
         autohyperClickerPrice = 10000;
         mangoClickPrice = 10000000;
@@ -135,6 +160,7 @@
         document.getElementById("rebirthPrice").textContent = rebirthPrice;
         document.getElementById("rebirthUpgradePrice").textContent = rebirthUpgradePrice;
         document.getElementById("hyperPrice").textContent = hyperClickPrice;
+        document.getElementById("premiumPrice").textContent = premiumClickPrice;
         document.getElementById("autohyperPrice").textContent = autohyperClickerPrice;
         document.getElementById("mangoPrice").textContent = mangoClickPrice;
         document.getElementById("automangoPrice").textContent = automangoClickerPrice;
@@ -230,6 +256,7 @@ function saveProgress() {
         autoClickers: autoClickers,
         hyperClick: hyperClick,
         autohyperClickers: autohyperClickers,
+        premiumClick: premiumClick,
         mangoClick: mangoClick,
         automangoClicker: automangoClicker,
         autoClickerPrice: autoClickerPrice,
@@ -252,6 +279,7 @@ function loadProgress() {
         clickValue = savedData.clickValue || 1;
         autoClickers = savedData.autoClickers || 0;
         hyperClick = savedData.hyperClick || 0;
+        premiumClick = savedData.premiumClick || 0;
         autohyperClickers = savedData.autohyperClickers || 0;
         mangoClick = savedData.mangoClick || 0;
         automangoClicker = savedData.automangoClicker || 0;
@@ -270,6 +298,7 @@ function loadProgress() {
         document.getElementById("autoPrice").textContent = autoClickerPrice;
         document.getElementById("multiPrice").textContent = multiClickPrice;
         document.getElementById("hyperPrice").textContent = hyperClickPrice;
+        document.getElementById("premiumPrice").textContent = premiumClickPrice;
         document.getElementById("autohyperPrice").textContent = autohyperClickerPrice;
         document.getElementById("mangoPrice").textContent = mangoClickPrice;
         document.getElementById("automangoPrice").textContent = automangoClickerPrice;
@@ -367,6 +396,34 @@ setInterval(() => {
     }
     lastCount = count;
 }, 3000);
+function kickCheater() {
+    document.body.innerHTML = "<h1 style='text-align: center; font-size: 50px;'>nuh uh</h1>";
+    localStorage.setItem("resetGame", "true");
+    setTimeout(() => location.reload(), 3000);
+}
+
+const originalPrices = {
+    autoClicker: autoClickerPrice,
+    multiClick: multiClickPrice,
+    premiumClick: premiumPrice,
+    hyperClick: hyperClickPrice,
+    autohyperClicker: autohyperClickerPrice,
+    herrmannClick: herrmannPrice,
+    mangoClick: mangoClickPrice,
+    automangoClicker: automangoClickerPrice,
+    rebirth: rebirthPrice,
+    rebirthUpgrade: rebirthUpgradePrice
+};
+
+function detectPriceCheat() {
+    for (let upgrade in originalPrices) {
+        if (window[upgrade + "Price"] < originalPrices[upgrade]) {
+            kickCheater();
+        }
+    }
+}
+
+setInterval(detectPriceCheat, 1000);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         (function(){function a(){document.body.innerHTML="<h1 style='text-align: center; font-size: 50px;'>nuh uh</h1>",localStorage.setItem("\uD83D\uDD12","true"),setTimeout(()=>location.reload(),3000)}function b(){let c=atob("dHJlamJhbA==,Y2hlYXQsY2hlYXRzLGhhY2ssY2xpY2tlcix0cmVqYmFsX2NsaWNrZXJfaGFjayx0cmVqYmFsIGNsaWNrZXIgaGFjayx0cmViYWwgaGFjaw==").split(",");for(let d=0;d<navigator.plugins.length;d++){let e=navigator.plugins[d].name.toLowerCase();if(c.some(f=>e.includes(f)))a()}}window.addEventListener("load",b);})();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     </script>
 </body>
